@@ -3,56 +3,55 @@ package org.andengine.extension.tmx.util.exception;
 import org.xml.sax.SAXException;
 
 /**
- * (c) 2010 Nicolas Gramlich 
- * (c) 2011 Zynga Inc.
+ * (c) 2010 Nicolas Gramlich (c) 2011 Zynga Inc.
  * 
  * @author Nicolas Gramlich
  * @since 00:10:02 - 28.07.2010
  */
 public class TMXParseException extends SAXException {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final long serialVersionUID = 2213964295487921492L;
+    private static final long serialVersionUID = 2213964295487921492L;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public TMXParseException() {
-		super();
-	}
+    public TMXParseException() {
+        super();
+    }
 
-	public TMXParseException(final String pDetailMessage) {
-		super(pDetailMessage);
-	}
+    public TMXParseException(final String pDetailMessage) {
+        super(pDetailMessage);
+    }
 
-	public TMXParseException(final Exception pException) {
-		super(pException);
-	}
+    public TMXParseException(final Exception pException) {
+        super(pException);
+    }
 
-	public TMXParseException(final String pMessage, final Exception pException) {
-		super(pMessage, pException);
-	}
+    public TMXParseException(final String pMessage, final Exception pException) {
+        super(pMessage, pException);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

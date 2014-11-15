@@ -18,78 +18,77 @@ import org.xml.sax.XMLReader;
 import android.content.res.AssetManager;
 
 /**
- * (c) 2010 Nicolas Gramlich
- * (c) 2011 Zynga Inc.
+ * (c) 2010 Nicolas Gramlich (c) 2011 Zynga Inc.
  * 
  * @author Nicolas Gramlich
  * @since 17:18:37 - 08.08.2010
  */
 public class TSXLoader {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	private final AssetManager mAssetManager;
-	private final TextureManager mTextureManager;
-	private final TextureOptions mTextureOptions;
+    private final AssetManager mAssetManager;
+    private final TextureManager mTextureManager;
+    private final TextureOptions mTextureOptions;
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public TSXLoader(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions) {
-		this.mAssetManager = pAssetManager;
-		this.mTextureManager = pTextureManager;
-		this.mTextureOptions = pTextureOptions;
-	}
+    public TSXLoader(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions) {
+        this.mAssetManager = pAssetManager;
+        this.mTextureManager = pTextureManager;
+        this.mTextureOptions = pTextureOptions;
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	public TMXTileSet loadFromAsset(final int pFirstGlobalTileID, final String pAssetPath) throws TSXLoadException {
-		try {
-			return this.load(pFirstGlobalTileID, this.mAssetManager.open(pAssetPath));
-		} catch (final IOException e) {
-			throw new TSXLoadException("Could not load TMXTileSet from asset: " + pAssetPath, e);
-		}
-	}
+    public TMXTileSet loadFromAsset(final int pFirstGlobalTileID, final String pAssetPath) throws TSXLoadException {
+        try {
+            return this.load(pFirstGlobalTileID, this.mAssetManager.open(pAssetPath));
+        } catch (final IOException e) {
+            throw new TSXLoadException("Could not load TMXTileSet from asset: " + pAssetPath, e);
+        }
+    }
 
-	private TMXTileSet load(final int pFirstGlobalTileID, final InputStream pInputStream) throws TSXLoadException {
-		try{
-			final SAXParserFactory spf = SAXParserFactory.newInstance();
-			final SAXParser sp = spf.newSAXParser();
+    private TMXTileSet load(final int pFirstGlobalTileID, final InputStream pInputStream) throws TSXLoadException {
+        try {
+            final SAXParserFactory spf = SAXParserFactory.newInstance();
+            final SAXParser sp = spf.newSAXParser();
 
-			final XMLReader xr = sp.getXMLReader();
-			final TSXParser tsxParser = new TSXParser(this.mAssetManager, this.mTextureManager, this.mTextureOptions, pFirstGlobalTileID);
-			xr.setContentHandler(tsxParser);
+            final XMLReader xr = sp.getXMLReader();
+            final TSXParser tsxParser = new TSXParser(this.mAssetManager, this.mTextureManager, this.mTextureOptions, pFirstGlobalTileID);
+            xr.setContentHandler(tsxParser);
 
-			xr.parse(new InputSource(new BufferedInputStream(pInputStream)));
+            xr.parse(new InputSource(new BufferedInputStream(pInputStream)));
 
-			return tsxParser.getTMXTileSet();
-		} catch (final SAXException e) {
-			throw new TSXLoadException(e);
-		} catch (final ParserConfigurationException pe) {
-			/* Doesn't happen. */
-			return null;
-		} catch (final IOException e) {
-			throw new TSXLoadException(e);
-		}
-	}
+            return tsxParser.getTMXTileSet();
+        } catch (final SAXException e) {
+            throw new TSXLoadException(e);
+        } catch (final ParserConfigurationException pe) {
+            /* Doesn't happen. */
+            return null;
+        } catch (final IOException e) {
+            throw new TSXLoadException(e);
+        }
+    }
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }

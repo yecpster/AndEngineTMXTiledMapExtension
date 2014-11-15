@@ -1,56 +1,55 @@
 package org.andengine.extension.tmx.util.exception;
 
 /**
- * (c) 2010 Nicolas Gramlich 
- * (c) 2011 Zynga Inc.
+ * (c) 2010 Nicolas Gramlich (c) 2011 Zynga Inc.
  * 
  * @author Nicolas Gramlich
  * @since 18:37:53 - 08.08.2010
  */
 public class TSXLoadException extends TMXException {
-	// ===========================================================
-	// Constants
-	// ===========================================================
+    // ===========================================================
+    // Constants
+    // ===========================================================
 
-	private static final long serialVersionUID = 10055223972707703L;
+    private static final long serialVersionUID = 10055223972707703L;
 
-	// ===========================================================
-	// Fields
-	// ===========================================================
+    // ===========================================================
+    // Fields
+    // ===========================================================
 
-	// ===========================================================
-	// Constructors
-	// ===========================================================
+    // ===========================================================
+    // Constructors
+    // ===========================================================
 
-	public TSXLoadException() {
-		super();
-	}
+    public TSXLoadException() {
+        super();
+    }
 
-	public TSXLoadException(final String pDetailMessage, final Throwable pThrowable) {
-		super(pDetailMessage, pThrowable);
-	}
+    public TSXLoadException(final String pDetailMessage, final Throwable pThrowable) {
+        super(pDetailMessage, pThrowable);
+    }
 
-	public TSXLoadException(final String pDetailMessage) {
-		super(pDetailMessage);
-	}
+    public TSXLoadException(final String pDetailMessage) {
+        super(pDetailMessage);
+    }
 
-	public TSXLoadException(final Throwable pThrowable) {
-		super(pThrowable);
-	}
+    public TSXLoadException(final Throwable pThrowable) {
+        super(pThrowable);
+    }
 
-	// ===========================================================
-	// Getter & Setter
-	// ===========================================================
+    // ===========================================================
+    // Getter & Setter
+    // ===========================================================
 
-	// ===========================================================
-	// Methods for/from SuperClass/Interfaces
-	// ===========================================================
+    // ===========================================================
+    // Methods for/from SuperClass/Interfaces
+    // ===========================================================
 
-	// ===========================================================
-	// Methods
-	// ===========================================================
+    // ===========================================================
+    // Methods
+    // ===========================================================
 
-	// ===========================================================
-	// Inner and Anonymous Classes
-	// ===========================================================
+    // ===========================================================
+    // Inner and Anonymous Classes
+    // ===========================================================
 }
