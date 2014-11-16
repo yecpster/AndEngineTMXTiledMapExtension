@@ -224,7 +224,7 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
         final float cameraXMax = pCamera.getXMax();
         final float cameraYMax = pCamera.getYMax();
 
-        final TMXTile tmxTileMin = this.getTMXTileAt(cameraXMin, cameraYMin, true);
+        final TMXTile tmxTileMin = this.getTMXTileAt(cameraXMin - 200, cameraYMin - 150, true);
         final TMXTile tmxTileMax = this.getTMXTileAt(cameraXMax, cameraYMax, true);
 
         /* TMX rows are counted up, starting from the topmost row to the bottom row. */
@@ -311,7 +311,8 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
             this.setIndex(this.getSpriteBatchIndex(tileColumn, tileRow));
             final float tileX = this.getTileX(tileColumn);
             final float tileY = this.getTileY(tileRow);
-            this.drawWithoutChecks(tmxTileTextureRegion, tileX, tileY, tileWidth, tileHeight, Color.WHITE_ABGR_PACKED_FLOAT);
+            this.drawWithoutChecks(tmxTileTextureRegion, tileX, tileY, tmxTileTextureRegion.getWidth(), tmxTileTextureRegion.getHeight(),
+                    Color.WHITE_ABGR_PACKED_FLOAT);
 
             /* Notify the ITMXTilePropertiesListener if it exists. */
             if (pTMXTilePropertyListener != null) {
