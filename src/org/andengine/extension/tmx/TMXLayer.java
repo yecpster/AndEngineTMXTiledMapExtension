@@ -224,7 +224,7 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
         final float cameraXMax = pCamera.getXMax();
         final float cameraYMax = pCamera.getYMax();
 
-        final TMXTile tmxTileMin = this.getTMXTileAt(cameraXMin - 200, cameraYMin - 150, true);
+        final TMXTile tmxTileMin = this.getTMXTileAt(cameraXMin - 360, cameraYMin - 310, true);
         final TMXTile tmxTileMax = this.getTMXTileAt(cameraXMax, cameraYMax, true);
 
         /* TMX rows are counted up, starting from the topmost row to the bottom row. */
