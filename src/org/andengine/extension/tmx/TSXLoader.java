@@ -35,15 +35,18 @@ public class TSXLoader {
     private final AssetManager mAssetManager;
     private final TextureManager mTextureManager;
     private final TextureOptions mTextureOptions;
+    private final TMXTiledMap mTMXTiledMap;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    public TSXLoader(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions) {
+    public TSXLoader(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions,
+            final TMXTiledMap mTMXTiledMap) {
         this.mAssetManager = pAssetManager;
         this.mTextureManager = pTextureManager;
         this.mTextureOptions = pTextureOptions;
+        this.mTMXTiledMap = mTMXTiledMap;
     }
 
     // ===========================================================
@@ -72,7 +75,7 @@ public class TSXLoader {
             final SAXParser sp = spf.newSAXParser();
 
             final XMLReader xr = sp.getXMLReader();
-            final TSXParser tsxParser = new TSXParser(this.mAssetManager, this.mTextureManager, this.mTextureOptions, pFirstGlobalTileID);
+            final TSXParser tsxParser = new TSXParser(this.mAssetManager, this.mTextureManager, this.mTextureOptions, pFirstGlobalTileID, mTMXTiledMap);
             xr.setContentHandler(tsxParser);
 
             xr.parse(new InputSource(new BufferedInputStream(pInputStream)));

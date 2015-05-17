@@ -1,9 +1,12 @@
 package org.andengine.extension.tmx;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.andengine.entity.Entity;
 import org.andengine.extension.tmx.util.constants.TMXConstants;
+import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.util.SAXUtils;
 import org.xml.sax.Attributes;
@@ -30,6 +33,8 @@ public class TMXTiledMap extends Entity implements TMXConstants {
     private final int mTilesRows;
     private final int mTileWidth;
     private final int mTileHeight;
+
+    private final Map<String, ITexture> textureMap = new HashMap<String, ITexture>();
 
     private final ArrayList<TMXTileSet> mTMXTileSets = new ArrayList<TMXTileSet>();
     private final ArrayList<TMXLayer> mTMXLayers = new ArrayList<TMXLayer>();
@@ -65,10 +70,12 @@ public class TMXTiledMap extends Entity implements TMXConstants {
         return this.mOrientation;
     }
 
+    @Override
     public float getWidth() {
         return this.mTileColumns * this.mTileWidth;
     }
 
+    @Override
     public float getHeight() {
         return this.mTilesRows * this.mTileHeight;
     }
@@ -172,6 +179,16 @@ public class TMXTiledMap extends Entity implements TMXConstants {
                 }
             }
             throw new IllegalArgumentException("No TextureRegion found for pGlobalTileID=" + pGlobalTileID);
+        }
+    }
+
+    public Map<String, ITexture> getTextureMap() {
+        return textureMap;
+    }
+
+    public void unload() {
+        for (final ITexture texture : textureMap.values()) {
+            texture.unload();
         }
     }
 

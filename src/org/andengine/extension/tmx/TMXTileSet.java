@@ -1,5 +1,7 @@
 package org.andengine.extension.tmx;
 
+import java.util.Map;
+
 import org.andengine.extension.tmx.util.constants.TMXConstants;
 import org.andengine.extension.tmx.util.exception.TMXParseException;
 import org.andengine.opengl.texture.ITexture;
@@ -50,17 +52,19 @@ public class TMXTileSet implements TMXConstants {
     private final int mSpacing;
     private final int mMargin;
 
+    private final TMXTiledMap mTMXTiledMap;
+
     private final SparseArray<TMXProperties<TMXTileProperty>> mTMXTileProperties = new SparseArray<TMXProperties<TMXTileProperty>>();
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
-    TMXTileSet(final Attributes pAttributes, final TextureOptions pTextureOptions) {
-        this(SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_FIRSTGID, 1), pAttributes, pTextureOptions);
+    TMXTileSet(final Attributes pAttributes, final TextureOptions pTextureOptions, final TMXTiledMap mTMXTiledMap) {
+        this(SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_FIRSTGID, 1), pAttributes, pTextureOptions, mTMXTiledMap);
     }
 
-    TMXTileSet(final int pFirstGlobalTileID, final Attributes pAttributes, final TextureOptions pTextureOptions) {
+    TMXTileSet(final int pFirstGlobalTileID, final Attributes pAttributes, final TextureOptions pTextureOptions, final TMXTiledMap mTMXTiledMap) {
         this.mFirstGlobalTileID = pFirstGlobalTileID;
         this.mName = pAttributes.getValue("", TMXConstants.TAG_TILESET_ATTRIBUTE_NAME);
         this.mTileWidth = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_TILEWIDTH);
@@ -69,6 +73,7 @@ public class TMXTileSet implements TMXConstants {
         this.mMargin = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_MARGIN, 0);
 
         this.mTextureOptions = pTextureOptions;
+        this.mTMXTiledMap = mTMXTiledMap;
     }
 
     // ===========================================================
@@ -106,6 +111,14 @@ public class TMXTileSet implements TMXConstants {
     public void setImageSource(final AssetManager pAssetManager, final TextureManager pTextureManager, final Attributes pAttributes) throws TMXParseException {
         this.mImageSource = pAttributes.getValue("", TMXConstants.TAG_IMAGE_ATTRIBUTE_SOURCE);
 
+        final Map<String, ITexture> textureMap = this.mTMXTiledMap.getTextureMap();
+        if (textureMap.containsKey(mImageSource)) {
+            this.mTexture = textureMap.get(mImageSource);
+            this.mTilesHorizontal = TMXTileSet.determineCount(mTexture.getWidth(), this.mTileWidth, this.mMargin, this.mSpacing);
+            this.mTilesVertical = TMXTileSet.determineCount(mTexture.getHeight(), this.mTileHeight, this.mMargin, this.mSpacing);
+            return;
+        }
+
         final AssetBitmapTextureAtlasSource assetBitmapTextureAtlasSource = AssetBitmapTextureAtlasSource.create(pAssetManager, this.mImageSource);
         this.mTilesHorizontal = TMXTileSet.determineCount(assetBitmapTextureAtlasSource.getTextureWidth(), this.mTileWidth, this.mMargin, this.mSpacing);
         this.mTilesVertical = TMXTileSet.determineCount(assetBitmapTextureAtlasSource.getTextureHeight(), this.mTileHeight, this.mMargin, this.mSpacing);
@@ -124,6 +137,7 @@ public class TMXTileSet implements TMXConstants {
                 throw new TMXParseException("Illegal value: '" + transparentColor + "' for attribute 'trans' supplied!", e);
             }
         }
+        bitmapTextureAtlas.setPath(mImageSource);
         this.mTexture = bitmapTextureAtlas;
         this.mTexture.load();
     }
