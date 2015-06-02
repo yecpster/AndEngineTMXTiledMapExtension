@@ -34,7 +34,7 @@ import android.util.Base64InputStream;
  * @author Nicolas Gramlich
  * @since 20:27:31 - 20.07.2010
  */
-public class TMXLayer extends TMXLayerSuper implements TMXConstants {
+public class TMXLayer extends LowMemorySpriteBatch implements TMXConstants {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -60,7 +60,7 @@ public class TMXLayer extends TMXLayerSuper implements TMXConstants {
     // ===========================================================
 
     public TMXLayer(final TMXTiledMap pTMXTiledMap, final Attributes pAttributes, final VertexBufferObjectManager pVertexBufferObjectManager) {
-        super(SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_LAYER_ATTRIBUTE_WIDTH)
+        super(null, SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_LAYER_ATTRIBUTE_WIDTH)
                 * SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_LAYER_ATTRIBUTE_HEIGHT), pVertexBufferObjectManager);
 
         this.mTMXTiledMap = pTMXTiledMap;
