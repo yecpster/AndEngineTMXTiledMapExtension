@@ -53,6 +53,7 @@ public class TMXTileSet implements TMXConstants {
     private final int mMargin;
 
     private final TMXTiledMap mTMXTiledMap;
+    private final BitmapTextureFormat bitmapTextureFormat;
 
     private final SparseArray<TMXProperties<TMXTileProperty>> mTMXTileProperties = new SparseArray<TMXProperties<TMXTileProperty>>();
 
@@ -60,11 +61,13 @@ public class TMXTileSet implements TMXConstants {
     // Constructors
     // ===========================================================
 
-    TMXTileSet(final Attributes pAttributes, final TextureOptions pTextureOptions, final TMXTiledMap mTMXTiledMap) {
-        this(SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_FIRSTGID, 1), pAttributes, pTextureOptions, mTMXTiledMap);
+    TMXTileSet(final Attributes pAttributes, final TextureOptions pTextureOptions, final TMXTiledMap mTMXTiledMap, final BitmapTextureFormat bitmapTextureFormat) {
+        this(SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_FIRSTGID, 1), pAttributes, pTextureOptions, mTMXTiledMap,
+                bitmapTextureFormat);
     }
 
-    TMXTileSet(final int pFirstGlobalTileID, final Attributes pAttributes, final TextureOptions pTextureOptions, final TMXTiledMap mTMXTiledMap) {
+    TMXTileSet(final int pFirstGlobalTileID, final Attributes pAttributes, final TextureOptions pTextureOptions, final TMXTiledMap mTMXTiledMap,
+            final BitmapTextureFormat bitmapTextureFormat) {
         this.mFirstGlobalTileID = pFirstGlobalTileID;
         this.mName = pAttributes.getValue("", TMXConstants.TAG_TILESET_ATTRIBUTE_NAME);
         this.mTileWidth = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_TILEWIDTH);
@@ -74,6 +77,7 @@ public class TMXTileSet implements TMXConstants {
 
         this.mTextureOptions = pTextureOptions;
         this.mTMXTiledMap = mTMXTiledMap;
+        this.bitmapTextureFormat = bitmapTextureFormat;
     }
 
     // ===========================================================
@@ -123,7 +127,7 @@ public class TMXTileSet implements TMXConstants {
         this.mTilesHorizontal = TMXTileSet.determineCount(assetBitmapTextureAtlasSource.getTextureWidth(), this.mTileWidth, this.mMargin, this.mSpacing);
         this.mTilesVertical = TMXTileSet.determineCount(assetBitmapTextureAtlasSource.getTextureHeight(), this.mTileHeight, this.mMargin, this.mSpacing);
         final BitmapTextureAtlas bitmapTextureAtlas = new BitmapTextureAtlas(pTextureManager, assetBitmapTextureAtlasSource.getTextureWidth(),
-                assetBitmapTextureAtlasSource.getTextureHeight(), BitmapTextureFormat.RGBA_8888, this.mTextureOptions); // TODO Make TextureFormat variable
+                assetBitmapTextureAtlasSource.getTextureHeight(), bitmapTextureFormat, this.mTextureOptions); // TODO Make TextureFormat variable
 
         final String transparentColor = SAXUtils.getAttribute(pAttributes, TMXConstants.TAG_IMAGE_ATTRIBUTE_TRANS, null);
         if (transparentColor == null) {

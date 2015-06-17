@@ -4,6 +4,7 @@ import org.andengine.extension.tmx.util.constants.TMXConstants;
 import org.andengine.extension.tmx.util.exception.TMXParseException;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
+import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
 import org.andengine.util.SAXUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -76,7 +77,7 @@ public class TSXParser extends DefaultHandler implements TMXConstants {
     public void startElement(final String pUri, final String pLocalName, final String pQualifiedName, final Attributes pAttributes) throws SAXException {
         if (pLocalName.equals(TMXConstants.TAG_TILESET)) {
             this.mInTileset = true;
-            this.mTMXTileSet = new TMXTileSet(this.mFirstGlobalTileID, pAttributes, this.mTextureOptions, mTMXTiledMap);
+            this.mTMXTileSet = new TMXTileSet(this.mFirstGlobalTileID, pAttributes, this.mTextureOptions, mTMXTiledMap, BitmapTextureFormat.RGBA_8888);
         } else if (pLocalName.equals(TMXConstants.TAG_IMAGE)) {
             this.mInImage = true;
             this.mTMXTileSet.setImageSource(this.mAssetManager, this.mTextureManager, pAttributes);

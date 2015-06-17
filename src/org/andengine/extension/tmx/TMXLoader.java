@@ -11,6 +11,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.andengine.extension.tmx.util.exception.TMXLoadException;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
+import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -39,6 +40,7 @@ public class TMXLoader {
     private final TextureOptions mTextureOptions;
     private final VertexBufferObjectManager mVertexBufferObjectManager;
     private final ITMXTilePropertiesListener mTMXTilePropertyListener;
+    private final BitmapTextureFormat bitmapTextureFormat;
 
     // ===========================================================
     // Constructors
@@ -83,11 +85,18 @@ public class TMXLoader {
 
     public TMXLoader(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions,
             final VertexBufferObjectManager pVertexBufferObjectManager, final ITMXTilePropertiesListener pTMXTilePropertyListener) {
+        this(pAssetManager, pTextureManager, pTextureOptions, pVertexBufferObjectManager, pTMXTilePropertyListener, BitmapTextureFormat.RGBA_8888);
+    }
+
+    public TMXLoader(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions,
+            final VertexBufferObjectManager pVertexBufferObjectManager, final ITMXTilePropertiesListener pTMXTilePropertyListener,
+            final BitmapTextureFormat bitmapTextureFormat) {
         this.mAssetManager = pAssetManager;
         this.mTextureManager = pTextureManager;
         this.mTextureOptions = pTextureOptions;
         this.mVertexBufferObjectManager = pVertexBufferObjectManager;
         this.mTMXTilePropertyListener = pTMXTilePropertyListener;
+        this.bitmapTextureFormat = bitmapTextureFormat;
     }
 
     // ===========================================================
@@ -117,7 +126,7 @@ public class TMXLoader {
 
             final XMLReader xr = sp.getXMLReader();
             final TMXParser tmxParser = new TMXParser(this.mAssetManager, this.mTextureManager, this.mTextureOptions, this.mVertexBufferObjectManager,
-                    this.mTMXTilePropertyListener);
+                    this.mTMXTilePropertyListener, bitmapTextureFormat);
             xr.setContentHandler(tmxParser);
 
             xr.parse(new InputSource(new BufferedInputStream(pInputStream)));

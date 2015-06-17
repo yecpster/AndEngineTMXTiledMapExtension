@@ -9,6 +9,7 @@ import org.andengine.extension.tmx.util.exception.TMXParseException;
 import org.andengine.extension.tmx.util.exception.TSXLoadException;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
+import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.util.SAXUtils;
 import org.andengine.util.debug.Debug;
@@ -60,6 +61,7 @@ public class TMXParser extends DefaultHandler implements TMXConstants {
     private boolean mInData;
     private boolean mInObjectGroup;
     private boolean mInObject;
+    private final BitmapTextureFormat bitmapTextureFormat;
 
     // ===========================================================
     // Constructors
@@ -67,11 +69,18 @@ public class TMXParser extends DefaultHandler implements TMXConstants {
 
     public TMXParser(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions,
             final VertexBufferObjectManager pVertexBufferObjectManager, final ITMXTilePropertiesListener pTMXTilePropertyListener) {
+        this(pAssetManager, pTextureManager, pTextureOptions, pVertexBufferObjectManager, pTMXTilePropertyListener, BitmapTextureFormat.RGBA_8888);
+    }
+
+    public TMXParser(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions,
+            final VertexBufferObjectManager pVertexBufferObjectManager, final ITMXTilePropertiesListener pTMXTilePropertyListener,
+            final BitmapTextureFormat bitmapTextureFormat) {
         this.mAssetManager = pAssetManager;
         this.mTextureManager = pTextureManager;
         this.mTextureOptions = pTextureOptions;
         this.mVertexBufferObjectManager = pVertexBufferObjectManager;
         this.mTMXTilePropertyListener = pTMXTilePropertyListener;
+        this.bitmapTextureFormat = bitmapTextureFormat;
     }
 
     // ===========================================================
@@ -96,7 +105,7 @@ public class TMXParser extends DefaultHandler implements TMXConstants {
             final TMXTileSet tmxTileSet;
             final String tsxTileSetSource = pAttributes.getValue("", TMXConstants.TAG_TILESET_ATTRIBUTE_SOURCE);
             if (tsxTileSetSource == null) {
-                tmxTileSet = new TMXTileSet(pAttributes, this.mTextureOptions, mTMXTiledMap);
+                tmxTileSet = new TMXTileSet(pAttributes, this.mTextureOptions, mTMXTiledMap, bitmapTextureFormat);
             } else {
                 try {
                     final int firstGlobalTileID = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_FIRSTGID, 1);
