@@ -11,6 +11,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.andengine.extension.tmx.util.exception.TSXLoadException;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
+import org.andengine.opengl.texture.bitmap.BitmapTextureFormat;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -36,17 +37,19 @@ public class TSXLoader {
     private final TextureManager mTextureManager;
     private final TextureOptions mTextureOptions;
     private final TMXTiledMap mTMXTiledMap;
+    private final BitmapTextureFormat bitmapTextureFormat;
 
     // ===========================================================
     // Constructors
     // ===========================================================
 
     public TSXLoader(final AssetManager pAssetManager, final TextureManager pTextureManager, final TextureOptions pTextureOptions,
-            final TMXTiledMap mTMXTiledMap) {
+            final TMXTiledMap mTMXTiledMap, final BitmapTextureFormat bitmapTextureFormat) {
         this.mAssetManager = pAssetManager;
         this.mTextureManager = pTextureManager;
         this.mTextureOptions = pTextureOptions;
         this.mTMXTiledMap = mTMXTiledMap;
+        this.bitmapTextureFormat = bitmapTextureFormat;
     }
 
     // ===========================================================
@@ -75,7 +78,8 @@ public class TSXLoader {
             final SAXParser sp = spf.newSAXParser();
 
             final XMLReader xr = sp.getXMLReader();
-            final TSXParser tsxParser = new TSXParser(this.mAssetManager, this.mTextureManager, this.mTextureOptions, pFirstGlobalTileID, mTMXTiledMap);
+            final TSXParser tsxParser = new TSXParser(this.mAssetManager, this.mTextureManager, this.mTextureOptions, pFirstGlobalTileID, mTMXTiledMap,
+                    bitmapTextureFormat);
             xr.setContentHandler(tsxParser);
 
             xr.parse(new InputSource(new BufferedInputStream(pInputStream)));

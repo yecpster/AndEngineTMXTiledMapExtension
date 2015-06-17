@@ -109,7 +109,7 @@ public class TMXParser extends DefaultHandler implements TMXConstants {
             } else {
                 try {
                     final int firstGlobalTileID = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_TILESET_ATTRIBUTE_FIRSTGID, 1);
-                    final TSXLoader tsxLoader = new TSXLoader(this.mAssetManager, this.mTextureManager, this.mTextureOptions, mTMXTiledMap);
+                    final TSXLoader tsxLoader = new TSXLoader(this.mAssetManager, this.mTextureManager, this.mTextureOptions, mTMXTiledMap, bitmapTextureFormat);
                     tmxTileSet = tsxLoader.loadFromAsset(firstGlobalTileID, tsxTileSetSource);
                 } catch (final TSXLoadException e) {
                     throw new TMXParseException("Failed to load TMXTileSet from source: " + tsxTileSetSource, e);

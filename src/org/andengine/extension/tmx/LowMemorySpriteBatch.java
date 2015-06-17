@@ -11,6 +11,7 @@ public class LowMemorySpriteBatch extends SpriteBatch {
     public LowMemorySpriteBatch(final ITexture iTexture, final int capacity, final VertexBufferObjectManager vbom) {
         super(iTexture, capacity, new LowMemorySpriteBatchVertexBufferObject(vbom, capacity * SpriteBatch.SPRITE_SIZE, DrawType.STATIC, true,
                 SpriteBatch.VERTEXBUFFEROBJECTATTRIBUTES_DEFAULT));
+        this.setCullingEnabled(true);
     }
 
 }
