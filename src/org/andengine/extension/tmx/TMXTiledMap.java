@@ -34,7 +34,7 @@ public class TMXTiledMap extends Entity implements TMXConstants {
     private final int mTileWidth;
     private final int mTileHeight;
 
-    private final Map<String, ITexture> textureMap = new HashMap<String, ITexture>();
+    private static final Map<String, ITexture> textureMap = new HashMap<String, ITexture>();
 
     private final ArrayList<TMXTileSet> mTMXTileSets = new ArrayList<TMXTileSet>();
     private final ArrayList<TMXLayer> mTMXLayers = new ArrayList<TMXLayer>();
@@ -182,7 +182,7 @@ public class TMXTiledMap extends Entity implements TMXConstants {
         }
     }
 
-    public Map<String, ITexture> getTextureMap() {
+    public static Map<String, ITexture> getTextureMap() {
         return textureMap;
     }
 

@@ -200,7 +200,7 @@ public class TMXLayer extends LowMemorySpriteBatch implements TMXConstants {
         final float cameraLocalXMin = cameraLocalCoordinatesMin[SpriteBatch.VERTEX_INDEX_X];
         final float cameraLocalYMin = cameraLocalCoordinatesMin[SpriteBatch.VERTEX_INDEX_Y];
 
-        if ((cameraLocalXMin > this.mWidth) || (cameraLocalYMin > this.mHeight)) {
+        if ((cameraLocalXMin > this.mWidth + 580) || (cameraLocalYMin > this.mHeight + 330)) {
             return true;
         }
 

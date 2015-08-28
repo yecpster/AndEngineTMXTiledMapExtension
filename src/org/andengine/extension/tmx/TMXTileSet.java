@@ -144,6 +144,7 @@ public class TMXTileSet implements TMXConstants {
         bitmapTextureAtlas.setPath(mImageSource);
         this.mTexture = bitmapTextureAtlas;
         this.mTexture.load();
+        textureMap.put(mImageSource, mTexture);
     }
 
     public String getImageSource() {
